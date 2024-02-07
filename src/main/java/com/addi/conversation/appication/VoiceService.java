@@ -1,13 +1,8 @@
-package com.addi.stt.appication;
+package com.addi.conversation.appication;
 
-import com.addi.analisys.domain.Analysis;
 import com.addi.global.exception.BusinessException;
-import com.addi.stt.appication.dto.AnalysisResponse;
 
-import com.addi.stt.exception.VoiceError;
-import com.addi.user.doamin.User;
-import com.addi.user.exception.UserError;
-import com.addi.user.infra.persistence.UserRepository;
+import com.addi.conversation.exception.ConversationError;
 import com.google.cloud.speech.v1.*;
 import com.google.protobuf.ByteString;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
-
-import static java.util.UUID.randomUUID;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +25,7 @@ public class VoiceService {
 
 	public List<String> convert(String macAddress, List<MultipartFile> files) {
 		if (files.isEmpty()) {
-			BusinessException.of(VoiceError.EMPTY_VOICE);
+			BusinessException.of(ConversationError.EMPTY_VOICE);
 		}
 
 		List<String> transcripts = new ArrayList<>();
@@ -41,7 +33,7 @@ public class VoiceService {
 
 			try (SpeechClient speechClient = SpeechClient.create()) {
 
-				File converted = convertM4aToMp3(file);  // 변환 함수 호출
+				File converted = convertAudioToMp3(file);  // 변환 함수 호출
 
 				// 오디오 파일을 byte array로 decode
 				byte[] audioBytes = Files.readAllBytes(converted.toPath());  // 변환된 파일 읽기
@@ -79,7 +71,7 @@ public class VoiceService {
 	}
 
 
-	private File convertM4aToMp3(MultipartFile multipartFile) throws IOException {
+	private File convertAudioToMp3(MultipartFile multipartFile) throws IOException {
 		File targetFile = new File("converted_" + multipartFile.getOriginalFilename() + ".mp3");
 		FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(multipartFile.getInputStream());
 		try {
