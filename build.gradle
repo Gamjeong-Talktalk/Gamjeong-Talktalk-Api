@@ -34,7 +34,8 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok'
 
     // Databases
-    runtimeOnly 'com.mysql:mysql-connector-j'
+    //runtimeOnly 'com.mysql:mysql-connector-j'
+    implementation 'com.h2database:h2'
 
     // queryDSL
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
@@ -51,7 +52,11 @@ dependencies {
     //convertMP3
     implementation 'org.bytedeco:javacv-platform:1.5.5'
     implementation 'org.bytedeco:ffmpeg-platform:4.3.2-1.5.5'
+
+    //apache.lang3
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
 }
+
 
 tasks.named('test') {
     useJUnitPlatform()
