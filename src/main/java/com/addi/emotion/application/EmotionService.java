@@ -7,7 +7,6 @@ import com.addi.emotion.dto.EmotionResponse;
 import com.addi.emotion.infra.persistence.EmotionRepository;
 import com.addi.conversation.domain.Conversation;
 import com.addi.global.exception.BusinessException;
-import com.addi.user.exception.GuardianError;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;

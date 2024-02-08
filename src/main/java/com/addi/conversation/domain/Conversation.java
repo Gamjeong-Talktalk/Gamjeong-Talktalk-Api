@@ -1,7 +1,7 @@
 package com.addi.conversation.domain;
 
 import com.addi.global.auditing.BaseEntity;
-import com.addi.user.domain.Member;
+import com.addi.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,9 +29,6 @@ public class Conversation extends BaseEntity {
     private Member member;
 
     @Column(nullable=false)
-    private String question;
-
-    @Column(nullable=false)
     private String response;
 
     @CreatedDate
@@ -39,9 +36,8 @@ public class Conversation extends BaseEntity {
     private LocalDate datetime;
 
     @Builder
-    private Conversation(Member member, String question, String response) {
+    private Conversation(Member member, String response) {
         this.member = member;
-        this.question = question;
         this.response = response;
         this.datetime = LocalDate.now();
     }
