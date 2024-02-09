@@ -31,7 +31,7 @@ public class MemberController {
 
 	// 유저 회원가입
 	@PostMapping("/busan/sasang/signup/member")
-	public ResponseEntity<SignUpToUserResponse> signUpUser(@RequestHeader String registrationCode, SignUpToUserRequest signUpToUserRequest) {
+	public ResponseEntity<SignUpToUserResponse> signUpUser(@RequestHeader String registrationCode, @RequestBody SignUpToUserRequest signUpToUserRequest) {
 		SignUpToUserResponse response = memberService.signUpToMember(registrationCode, signUpToUserRequest);
 
 		return ResponseEntity.ok(response);

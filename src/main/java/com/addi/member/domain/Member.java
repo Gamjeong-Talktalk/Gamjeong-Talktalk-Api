@@ -59,6 +59,7 @@ public class Member extends BaseEntity {
 
 	@Builder
 	public Member(Guardian guardian, String name, String phoneNumber, Gender gender, LocalDate birthDay, String address) {
+		this.guardian = guardian;
 		this.identificationCode = generateRandomCode();
 		this.name = name;
 		this.phoneNumber = phoneNumber;
