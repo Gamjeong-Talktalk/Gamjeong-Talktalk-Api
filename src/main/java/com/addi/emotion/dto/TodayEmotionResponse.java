@@ -1,18 +1,17 @@
 package com.addi.emotion.dto;
 
 import com.addi.emotion.domain.Emotion;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.Map;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Builder
-public class EmotionResponse {
+public class TodayEmotionResponse {
     BigDecimal anger;
     BigDecimal sad;
     BigDecimal anxious;
@@ -20,8 +19,8 @@ public class EmotionResponse {
     BigDecimal neutral;
 
 
-    public static EmotionResponse toResponse(Emotion emotion){
-        return EmotionResponse.builder()
+    public static TodayEmotionResponse toResponse(Emotion emotion){
+        return TodayEmotionResponse.builder()
                 .anger(emotion.getAnger())
                 .sad(emotion.getSad())
                 .anxious(emotion.getAnxious())
