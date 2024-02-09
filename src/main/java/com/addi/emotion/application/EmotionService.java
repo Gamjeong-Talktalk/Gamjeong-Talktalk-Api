@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -51,13 +52,14 @@ public class EmotionService {
         // 일주일간 대화 데이터 추출
         List<Conversation> conversationList = conversationRepository.findByMemberIdAndDatetime(memberId, currentDate);
         if (conversationList.isEmpty()) {
-            throw BusinessException.of(ConversationError.NOT_EXIST_CONVERSATION); // 저장된 대화가 없을 경우
+            throw BusinessException.of(ConversationError.NOT_EXIST_CONVERSATION_TODAY); // 저장된 대화가 없을 경우
         }
 
         // 대화 Entity의 Id 추출
         List<Long> conversationIds = new ArrayList<>(); // 대화 id 추출 리스트
         for(Conversation conversation : conversationList) {
             conversationIds.add(conversation.getId());
+            System.out.println(conversation.getId());
         }
 
         // 대화들의 감정 추출
@@ -68,6 +70,7 @@ public class EmotionService {
             anxious = anxious.add(emotion.getAnxious());
             happy = happy.add(emotion.getHappy());
             neutral = neutral.add(emotion.getNeutral());
+
         }
 
 
@@ -83,6 +86,7 @@ public class EmotionService {
     public OneWeekEmotionResponse getEmotionOneWeek(Long memberId){
         LocalDate currentDate = LocalDate.now().minusDays(1); // 현재 날짜
         LocalDate oneWeekAgoDate = currentDate.minusWeeks(1); // 일주일 전의 날짜
+
 
         //평균값
         Map<String, BigDecimal> avgValues = new HashMap<>();
@@ -109,9 +113,9 @@ public class EmotionService {
         minValues.put("neutral", BigDecimal.valueOf(Double.MAX_VALUE));
 
         // 일주일간 대화 데이터 추출
-        List<Conversation> conversationList = conversationRepository.findByMemberIdAndDatetimeBetween(memberId, currentDate, oneWeekAgoDate);
+        List<Conversation> conversationList = conversationRepository.findByMemberIdAndDatetimeBetween(memberId, oneWeekAgoDate, currentDate);
         if (conversationList.isEmpty()) {
-            throw BusinessException.of(ConversationError.NOT_EXIST_CONVERSATION); // 저장된 대화가 없을 경우
+            throw BusinessException.of(ConversationError.NOT_EXIST_CONVERSATION_WEEK); // 저장된 대화가 없을 경우
         }
 
         // 대화 Entity의 Id 추출
@@ -161,7 +165,7 @@ public class EmotionService {
 
 
     public void emotionAnalyzeUsingHuggingFace(List<Conversation> conversations) {
-        String url = "https://api-inference.huggingface.co/models/SchuylerH/bert-multilingual-go-emtions";
+        String url = "https://api-inference.huggingface.co/models/bhadresh-savani/bert-base-go-emotion";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + token);
@@ -181,6 +185,9 @@ public class EmotionService {
 
                 saveEmotion(resultsArray, conversation); // 감정 값 저장
 
+            } catch (HttpServerErrorException e){
+                e.printStackTrace();
+                throw BusinessException.of(ConversationError.NOT_READY_EMOTION_SERVER);
             } catch (RestClientException | IOException e) {
                 e.printStackTrace();
             }
@@ -259,6 +266,7 @@ public class EmotionService {
                 .happy(BigDecimal.valueOf(happy*100))
                 .neutral(BigDecimal.valueOf(neutral*100))
                 .build();
+
 
         emotionRepository.save(emotion);
     }

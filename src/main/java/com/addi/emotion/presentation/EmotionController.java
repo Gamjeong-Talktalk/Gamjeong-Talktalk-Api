@@ -18,14 +18,14 @@ public class EmotionController {
 
     private final ConversationRepository conversationRepository;
 
-    @GetMapping("/api/emotion/today/{memberId}")
+    @GetMapping("/busan/sasang/today/{memberId}")
     public ResponseEntity<TodayEmotionResponse> getEmotionToday(@PathVariable Long memberId){
         TodayEmotionResponse todayEmotionResponse = emotionService.getEmotionToday(memberId);
 
         return ResponseEntity.ok(todayEmotionResponse);
     }
 
-    @GetMapping("/api/emotion/week/{memberId}")
+    @GetMapping("/busan/sasang/week/{memberId}")
     public ResponseEntity<OneWeekEmotionResponse> getEmotionOneWeek(@PathVariable Long memberId){
         OneWeekEmotionResponse oneWeekEmotionResponse = emotionService.getEmotionOneWeek(memberId);
 
