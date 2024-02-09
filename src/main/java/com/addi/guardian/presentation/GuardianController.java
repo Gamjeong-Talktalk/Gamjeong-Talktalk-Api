@@ -23,14 +23,14 @@ public class GuardianController {
     private final GuardianService guardianService;
 
     //관리자 로그인
-    @PostMapping("/busan/sasang//guardian")
+    @PostMapping("/busan/sasang/login/guardian")
     public ResponseEntity<LoginToGuardianResponse> loginGuardian(LoginToGuardianRequest loginToGuardianRequest) {
         LoginToGuardianResponse response = guardianService.loginToGuardian(loginToGuardianRequest);
         return ResponseEntity.ok(response);
     }
 
     // 보호자 회원가입
-    @PostMapping("/busan/sasang//guardian")
+    @PostMapping("/busan/sasang/singUp/guardian")
     public ResponseEntity<String> signUpGuardian(SignUpToGuardianRequest signUpToGuardianRequest) { // 보호자 회원가입
         String registrationCode = guardianService.signUpToGuardian(signUpToGuardianRequest);
 
