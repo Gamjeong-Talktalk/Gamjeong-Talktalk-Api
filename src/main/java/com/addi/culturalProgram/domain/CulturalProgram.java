@@ -20,22 +20,22 @@ public class CulturalProgram {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable=false)
+    @Column(name="facility_name", nullable=false)
     private String facilityName;
 
     @Column(nullable=false)
     private String address;
 
-    @Column(nullable=false, length=20)
+    @Column(name="phone_number", nullable=false, length=20)
     private String phoneNumber;
 
-    @Column(nullable=false)
+    @Column(name="program_name", nullable=false)
     private String programName;
 
-    @Column(nullable=false)
+    @Column(name="start_date", nullable=false)
     private LocalDate startDate;
 
-    @Column(nullable=false)
+    @Column(name="end_date", nullable=false)
     private LocalDate endDate;
 
 

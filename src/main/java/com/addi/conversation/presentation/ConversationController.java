@@ -2,7 +2,9 @@ package com.addi.conversation.presentation;
 
 import java.util.List;
 
+import com.addi.conversation.domain.Conversation;
 import com.addi.emotion.application.EmotionService;
+import com.addi.member.domain.Member;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.addi.conversation.appication.VoiceService;
-import com.addi.translation.application.PapagoService;
+import com.addi.conversation.appication.ConversationService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,25 +22,23 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class UploadVoiceController {
+public class ConversationController {
 
-	private final PapagoService papagoService;
-	private final VoiceService voiceService;
+	private final ConversationService conversationService;
 
 	private final EmotionService emotionService;
 
-	@PostMapping("/api/uploadVoice")
-	public ResponseEntity<String> toEmotionalAnalysisResponse(
-		@RequestHeader String macAddress,
-		@RequestParam("files") List<MultipartFile> files
+	@PostMapping("/busan/sasang/conversation")
+	public ResponseEntity<Void> toEmotionalAnalysisResponse(
+		@RequestHeader String identificationCode,
+		@RequestParam("responses") List<String> responses
 	) {
-		List<String> convertedToTexts = voiceService.convert(macAddress, files);
-		System.out.println(convertedToTexts);
+		//Conversation 생성
+		List<Conversation> conversations = conversationService.saveConversations(identificationCode, responses);
 
-		String context = papagoService.translateEngToKor(convertedToTexts);
-		//emotionService.EmotionAnalyzeUsingHuggingFace(context);
+		//Emotion 생성
+		emotionService.emotionAnalyzeUsingHuggingFace(conversations);
 
-		return ResponseEntity.ok(context);
+		return ResponseEntity.ok().build();
 	}
-
 }
