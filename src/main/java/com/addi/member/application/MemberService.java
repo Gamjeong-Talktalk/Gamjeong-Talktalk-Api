@@ -30,14 +30,10 @@ public class MemberService {
 	private final GuardianRepository guardianRepository;
 
 	//User 로그인
-	public LoginToUserResponse loginToMember(String registrationCode, String phoneNumber){
-
-		//부정확한 등록코드 일 시,
-		Guardian guardian = guardianRepository.findByRegistrationCode(registrationCode)
-				.orElseThrow(() -> BusinessException.of(MemberError.INVITATION_CODE_NOT_FOUND));
+	public LoginToUserResponse loginToMember(String identificationCode){
 
 		//해당 user가 존재하지 않을 시,
-		Member member = memberRepository.findByGuardianAndPhoneNumber(guardian, phoneNumber)
+		Member member = memberRepository.findByIdentificationCode(identificationCode)
 				.orElseThrow(() -> BusinessException.of(MemberError.NOT_SIGN_UP));
 
 		return new LoginToUserResponse().toResponse(member);

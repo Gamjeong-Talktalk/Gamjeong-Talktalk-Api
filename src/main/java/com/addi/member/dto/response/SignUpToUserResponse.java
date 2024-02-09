@@ -18,6 +18,7 @@ import java.time.LocalDate;
 public class SignUpToUserResponse {
 
     Long id;
+    String identificationCode;
     String name;
     String phoneNumber;
     Gender gender;
@@ -28,6 +29,7 @@ public class SignUpToUserResponse {
     public SignUpToUserResponse toResponse(Member member){
         return SignUpToUserResponse.builder()
                 .id(member.getId())
+                .identificationCode(member.getIdentificationCode())
                 .name(member.getName())
                 .phoneNumber(member.getPhoneNumber())
                 .gender(member.getGender())

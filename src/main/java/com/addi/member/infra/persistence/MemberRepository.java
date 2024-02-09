@@ -9,6 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public interface MemberRepository extends JpaRepository<Member, Long> {
-	Optional<Member> findByGuardianAndPhoneNumber(Guardian guardian, String phoneNumber);
+	Optional<Member> findByIdentificationCode(String identificationCode);
 
 }

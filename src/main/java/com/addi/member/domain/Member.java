@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -30,6 +31,9 @@ public class Member extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name="guardian_id")
 	private Guardian guardian;
+
+	@Column(nullable = false, length=6, unique = true)
+	private String identificationCode;
 
 	@Column(nullable=false, length=30)
 	private String name;
@@ -55,11 +59,14 @@ public class Member extends BaseEntity {
 
 	@Builder
 	public Member(Guardian guardian, String name, String phoneNumber, Gender gender, LocalDate birthDay, String address) {
+		this.identificationCode = generateRandomCode();
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.gender = gender;
 		this.birthDay = birthDay;
 		this.address = address;
 	}
-
+	public String generateRandomCode() {
+		return RandomStringUtils.randomAlphanumeric(6).toUpperCase();
+	}
 }

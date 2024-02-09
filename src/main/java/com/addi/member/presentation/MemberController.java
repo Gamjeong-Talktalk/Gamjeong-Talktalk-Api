@@ -22,14 +22,15 @@ public class MemberController {
 	private final MemberService memberService;
 
 	//유저 로그인
-	@PostMapping("/api/login/user")
-	public ResponseEntity<LoginToUserResponse> loginUser(@RequestHeader String registrationCode, @RequestBody String phoneNumber) {
-		LoginToUserResponse response = memberService.loginToMember(registrationCode,phoneNumber);
+	@PostMapping("/busan/sasang/login/member")
+	public ResponseEntity<LoginToUserResponse> loginUser(@RequestHeader String identificationCode) {
+		LoginToUserResponse response = memberService.loginToMember(identificationCode);
+
 		return ResponseEntity.ok(response);
 	}
 
 	// 유저 회원가입
-	@PostMapping("/api/signup/user")
+	@PostMapping("/busan/sasang/signup/member")
 	public ResponseEntity<SignUpToUserResponse> signUpUser(@RequestHeader String registrationCode, SignUpToUserRequest signUpToUserRequest) {
 		SignUpToUserResponse response = memberService.signUpToMember(registrationCode, signUpToUserRequest);
 
@@ -37,33 +38,43 @@ public class MemberController {
 	}
 
 	// SOS 요청 송신
-	@GetMapping("/api/request/sos/{memberId}")
-	public void sendSOSRequest(@PathVariable Long memberId){
+	@GetMapping("/busan/sasang/sos/{memberId}")
+	public ResponseEntity<LoginToUserResponse> sendSOSRequest(@PathVariable Long memberId){
 		memberService.sendRequest(memberId);
+
+		return ResponseEntity.ok().build();
 	}
 
 	//가사지원
-	@GetMapping("/api/request/chores/{memberId}")
-	public void sendChoreRequest(@PathVariable Long memberId){
+	@GetMapping("/busan/sasang/chores/{memberId}")
+	public ResponseEntity<LoginToUserResponse> sendChoreRequest(@PathVariable Long memberId){
 		memberService.sendRequest(memberId);
+
+		return ResponseEntity.ok().build();
 	}
 
 	//외출동행
-	@GetMapping("/api/request/outside/{memberId}")
-	public void sendOutsideRequest(@PathVariable Long memberId){
+	@GetMapping("/busan/sasang/outside/{memberId}")
+	public ResponseEntity<LoginToUserResponse> sendOutsideRequest(@PathVariable Long memberId){
 		memberService.sendRequest(memberId);
+
+		return ResponseEntity.ok().build();
 	}
 
 	//말벗
-	@GetMapping("/api/request/friend/{memberId}")
-	public void sendFriendRequest(@PathVariable Long memberId){
+	@GetMapping("/busan/sasang/friend/{memberId}")
+	public ResponseEntity<LoginToUserResponse> sendFriendRequest(@PathVariable Long memberId){
 		memberService.sendRequest(memberId);
+
+		return ResponseEntity.ok().build();
 	}
 
 	//문화 활동 신청
-	@GetMapping("/api/request/culture/{memberId}")
-	public void sendCultureRequest(@PathVariable Long memberId){
+	@GetMapping("/busan/sasang/culture/{memberId}")
+	public ResponseEntity<LoginToUserResponse> sendCultureRequest(@PathVariable Long memberId){
 		memberService.sendRequest(memberId);
+
+		return ResponseEntity.ok().build();
 	}
 
 
