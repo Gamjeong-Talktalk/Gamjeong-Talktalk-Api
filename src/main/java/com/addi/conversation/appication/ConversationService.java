@@ -1,6 +1,7 @@
 package com.addi.conversation.appication;
 
 import com.addi.conversation.domain.Conversation;
+import com.addi.conversation.dto.ConversationRequest;
 import com.addi.conversation.infra.persistence.ConversationRepository;
 
 import com.addi.global.exception.BusinessException;
@@ -24,8 +25,9 @@ public class ConversationService {
 	private final ConversationRepository conversationRepository;
 
 
-	public List<Conversation> saveConversations(String identificationCode, List<String> responses){
+	public List<Conversation> saveConversations(String identificationCode, ConversationRequest conversationRequest){
 		Optional<Member> member = memberRepository.findByIdentificationCode(identificationCode);
+		List<String> responses = conversationRequest.getResponses();
 
 		//잘못된 식별코드
 		if (!member.isPresent())
