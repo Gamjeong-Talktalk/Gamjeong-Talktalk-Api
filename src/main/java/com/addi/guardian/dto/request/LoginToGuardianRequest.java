@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public class LoginToGuardianRequest {
-    String ID;
+    String loginId;
     String password;
 
 }

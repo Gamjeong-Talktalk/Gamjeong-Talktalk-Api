@@ -5,13 +5,15 @@ import com.addi.guardian.domain.Guardian;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 public class SignUpToGuardianRequest {
 
-    String ID;
+    String loginId;
     String password;
     String name;
     String phoneNumber;
@@ -19,7 +21,7 @@ public class SignUpToGuardianRequest {
 
     public Guardian toEntity(){
         return Guardian.builder()
-                .ID(ID)
+                .loginId(loginId)
                 .password(password)
                 .name(name)
                 .phoneNumber(phoneNumber)

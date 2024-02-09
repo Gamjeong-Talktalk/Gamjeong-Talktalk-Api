@@ -25,8 +25,8 @@ public class Guardian extends BaseEntity {
 	@Column(name = "guardian_id")
 	private Long id;
 
-	@Column(nullable=false, length=20, unique = true)
-	private String ID;
+	@Column(name="login_id", nullable=false, length=20, unique = true)
+	private String loginId;
 
 	@Column(nullable=false, length=30)
 	private String password;
@@ -48,8 +48,8 @@ public class Guardian extends BaseEntity {
 
 	// 생성자에서 registration_code를 랜덤한 값으로 초기화
 	@Builder
-	public Guardian(String ID, String password, String name, String phoneNumber, String organization) {
-		this.ID = ID;
+	public Guardian(String loginId, String password, String name, String phoneNumber, String organization) {
+		this.loginId = loginId;
 		this.password = password; // 암호화 x
 		this.name = name;
 		this.phoneNumber = phoneNumber;
@@ -60,6 +60,7 @@ public class Guardian extends BaseEntity {
 	public String generateRandomCode() {
 		return RandomStringUtils.randomAlphanumeric(6).toUpperCase();
 	}
+
 }
 
 

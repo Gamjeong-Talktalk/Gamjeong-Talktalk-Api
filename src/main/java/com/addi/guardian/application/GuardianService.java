@@ -31,7 +31,7 @@ public class GuardianService {
 	public LoginToGuardianResponse loginToGuardian(LoginToGuardianRequest loginToGuardianRequest) {
 
 		// 해당 Guardian이 존재하지 않을 시,
-		Guardian guardian = guardianRepository.findByIDAndPassword(loginToGuardianRequest.getID(), loginToGuardianRequest.getPassword())
+		Guardian guardian = guardianRepository.findByLoginIdAndPassword(loginToGuardianRequest.getLoginId(), loginToGuardianRequest.getPassword())
 				.orElseThrow(() -> BusinessException.of(GuardianError.NOT_SIGN_UP));
 
 		return new LoginToGuardianResponse().toResponse(guardian);
@@ -46,7 +46,6 @@ public class GuardianService {
 			// 이미 존재하는 전화번호일 경우
 			throw BusinessException.of(GuardianError.ALREADY_SIGN_UP);
 		}
-
 		Guardian guardian = signUpToGuardianRequest.toEntity();
 		guardianRepository.save(guardian);
 

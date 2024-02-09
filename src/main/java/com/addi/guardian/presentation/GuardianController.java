@@ -8,10 +8,7 @@ import com.addi.guardian.dto.response.LoginToGuardianResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,14 +21,14 @@ public class GuardianController {
 
     //관리자 로그인
     @PostMapping("/busan/sasang/login/guardian")
-    public ResponseEntity<LoginToGuardianResponse> loginGuardian(LoginToGuardianRequest loginToGuardianRequest) {
+    public ResponseEntity<LoginToGuardianResponse> loginGuardian(@RequestBody LoginToGuardianRequest loginToGuardianRequest) {
         LoginToGuardianResponse response = guardianService.loginToGuardian(loginToGuardianRequest);
         return ResponseEntity.ok(response);
     }
 
     // 보호자 회원가입
-    @PostMapping("/busan/sasang/singUp/guardian")
-    public ResponseEntity<String> signUpGuardian(SignUpToGuardianRequest signUpToGuardianRequest) { // 보호자 회원가입
+    @PostMapping("/busan/sasang/signup/guardian")
+    public ResponseEntity<String> signUpGuardian(@RequestBody SignUpToGuardianRequest signUpToGuardianRequest) { // 보호자 회원가입
         String registrationCode = guardianService.signUpToGuardian(signUpToGuardianRequest);
 
         return ResponseEntity.ok(registrationCode);

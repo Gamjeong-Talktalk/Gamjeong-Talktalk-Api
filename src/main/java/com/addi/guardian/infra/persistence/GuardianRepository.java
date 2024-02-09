@@ -11,5 +11,5 @@ import com.addi.guardian.domain.Guardian;
 public interface GuardianRepository extends JpaRepository<Guardian, Long> {
 	Optional<Guardian> findByPhoneNumber(String phoneNumber);
 	Optional<Guardian> findByRegistrationCode(String registrationCode);
-	Optional<Guardian> findByIDAndPassword(String ID, String password);
+	Optional<Guardian> findByLoginIdAndPassword(String loginId, String password);
 }
