@@ -19,19 +19,19 @@ public class CulturalProgramController {
 
     private final CulturalProgramService culturalProgramService;
 
-    @PostMapping("/busan/saSang/program")
+    @PostMapping("/busan/sasang/program")
     public ResponseEntity<Void> createCulturalProgram(@RequestBody CulturalProgramRequest programDTO) {
         culturalProgramService.createCulturalProgram(programDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/busan/saSang/programs")
+    @GetMapping("/busan/sasang/programs")
     public ResponseEntity<List<CulturalProgramResponse>> getAllCulturalPrograms() {
         List<CulturalProgramResponse> programs = culturalProgramService.getAllCulturalPrograms();
         return ResponseEntity.ok(programs);
     }
 
-    @DeleteMapping("/busan/saSang/program/{programId}")
+    @DeleteMapping("/busan/sasang/program/{programId}")
     public ResponseEntity<Void> deleteCulturalProgram(@PathVariable Long programId) {
         culturalProgramService.deleteCulturalProgram(programId);
         return ResponseEntity.noContent().build();
