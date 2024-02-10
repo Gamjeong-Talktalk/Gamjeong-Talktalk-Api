@@ -22,7 +22,7 @@ public class MemberController {
 	private final MemberService memberService;
 
 	//유저 로그인
-	@PostMapping("/busan/sasang/login/member")
+	@GetMapping("/busan/sasang/login/member")
 	public ResponseEntity<LoginToUserResponse> loginUser(@RequestHeader String identificationCode) {
 		LoginToUserResponse response = memberService.loginToMember(identificationCode);
 
