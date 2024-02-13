@@ -40,7 +40,7 @@ public class MemberController {
 		SignUpToUserResponse response = memberService.signUpToMember(signUpToUserRequest);
 
 		return ResponseEntity.ok(response);
-	}
+	}//
 
 	@GetMapping("/members/new")
 	public String createForm(Model model) {
