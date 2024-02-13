@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container" style="width: 1200px; max-width: 1200px;">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+
+    <div>
+        <style>
+            .custom-table th, .custom-table td {
+                text-align: center;
+                padding: 8px;
+            }
+            .program-id-column {
+                width: 5%;
+            }
+            .facility-name-column {
+                width: 15%;
+            }
+            .address-column {
+                width: 20%;
+            }
+            .phone-number-column {
+                width: 15%;
+            }
+            .program-name-column {
+                width: 15%;
+            }
+            .start-date-column {
+                width: 12%;
+            }
+            .end-date-column {
+                width: 12%;
+            }
+        </style>
+        <table class="table table-striped custom-table">
+            <thead>
+            <tr>
+                <th class="program-id-column">#</th>
+                <th class="facility-name-column">시설명</th>
+                <th class="address-column">주소</th>
+                <th class="phone-number-column">전화번호</th>
+                <th class="program-name-column">프로그램명</th>
+                <th class="start-date-column">시작일</th>
+                <th class="end-date-column">종료일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="culture : ${cultures}">
+                <td th:text="${culture.programId}"></td>
+                <td th:text="${culture.facilityName}"></td>
+                <td th:text="${culture.address}"></td>
+                <td th:text="${culture.phoneNumber}"></td>
+                <td th:text="${culture.programName}"></td>
+                <td th:text="${#temporals.format(culture.startDate, 'yyyy-MM-dd')}"></td>
+                <td th:text="${#temporals.format(culture.endDate, 'yyyy-MM-dd')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"/>
+
+</div> <!-- /container -->
+
+</body>
+</html>

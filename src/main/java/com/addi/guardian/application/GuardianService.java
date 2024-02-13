@@ -55,7 +55,7 @@ public class GuardianService {
 
 
 	//
-	public List<GetMembersResponse> getMembmers(Long guardianId){
+	public List<GetMembersResponse> getMembers(Long guardianId){
 		Guardian guardian = guardianRepository.findById(guardianId)
 				.orElseThrow(() -> BusinessException.of(GuardianError.NOT_EXIST_GUARDIAN));
 

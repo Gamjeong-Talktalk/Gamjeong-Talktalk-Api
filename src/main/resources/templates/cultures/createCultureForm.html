@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+    <form role="form" action="/cultures/new" th:object="${culturalForm}" method="post">
+        <div class="form-group">
+            <label th:for="facilityName">시설명</label>
+            <input type="text" th:field="*{facilityName}" class="form-control" placeholder="시설명을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="address">주소</label>
+            <input type="text" th:field="*{address}" class="form-control" placeholder="주소를 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="phoneNumber">전화번호</label>
+            <input type="text" th:field="*{phoneNumber}" class="form-control" placeholder="전화번호를 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="programName">프로그램명</label>
+            <input type="text" th:field="*{programName}" class="form-control" placeholder="프로그램명을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="startDate">시작일</label>
+            <input type="date" th:field="*{startDate}" class="form-control" placeholder="시작일을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="endDate">종료일</label>
+            <input type="date" th:field="*{endDate}" class="form-control" placeholder="종료일을 입력하세요">
+        </div>
+        <button type="submit" class="btn btn-primary">제출</button>
+    </form>
+
+    <div th:replace="fragments/footer :: footer"></div>
+</div> <!-- /container -->
+
+</body>
+</html>
