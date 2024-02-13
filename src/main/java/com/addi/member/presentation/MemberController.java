@@ -35,7 +35,7 @@ public class MemberController {
 		SignUpToUserResponse response = memberService.signUpToMember(registrationCode, signUpToUserRequest);
 
 		return ResponseEntity.ok(response);
-	}
+	}//
 
 	// SOS 요청 송신
 	@GetMapping("/busan/sasang/sos/{memberId}")
