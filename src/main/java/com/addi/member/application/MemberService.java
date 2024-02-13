@@ -40,10 +40,10 @@ public class MemberService {
 	}
 
 	// User 회원가입
-	public SignUpToUserResponse signUpToMember(String registrationCode, SignUpToUserRequest signUpToUserRequest) {
+	public SignUpToUserResponse signUpToMember(SignUpToUserRequest signUpToUserRequest) {
 
 		//부정확한 등록코드 일 시,
-		Guardian guardian = guardianRepository.findByRegistrationCode(registrationCode)
+		Guardian guardian = guardianRepository.findByRegistrationCode(signUpToUserRequest.getRegistrationCode())
 				.orElseThrow(() -> BusinessException.of(MemberError.INVITATION_CODE_NOT_FOUND));
 
 		Member member = signUpToUserRequest.toEntity(guardian);
