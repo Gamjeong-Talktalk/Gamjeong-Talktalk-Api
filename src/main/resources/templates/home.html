@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>감정톡톡</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+<div class="container">
+
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+    <div class="jumbotron">
+        <h1>< 감정톡톡 ></h1>
+        <p align="right"><b>부산시 사하구</b><br>담당자 변해빈님</p>
+        <br>
+        <p class="lead"><b>회원 관리 기능</b></p>
+        <p>
+            <a class="btn btn-lg btn-success" href="/members/new">회원 가입</a>
+            <a class="btn btn-lg btn-success" href="/members">회원 현황</a>
+        </p>
+        <p class="lead"><b>문화 생활 기능</b></p>
+        <p>
+            <a class="btn btn-lg btn-success" href="/cultures/new">문화생활 등록</a>
+            <a class="btn btn-lg btn-success" href="/cultures">문화생활 목록</a>
+        </p>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"></div>
+
+</div> <!-- /container -->
+
+</body>
+</html>
