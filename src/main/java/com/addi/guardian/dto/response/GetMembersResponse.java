@@ -23,7 +23,6 @@ public class GetMembersResponse {
     private LocalDate birthDay;
     private String address;
     private BigDecimal depressionIndex;
-    private String invitationCode;
 
 
     public static GetMembersResponse toResponse(Member member){
@@ -35,7 +34,6 @@ public class GetMembersResponse {
                 .birthDay(member.getBirthDay())
                 .address(member.getAddress())
                 .depressionIndex(member.getDepressionIndex())
-                .invitationCode(member.getIdentificationCode())
                 .build();
     }
 

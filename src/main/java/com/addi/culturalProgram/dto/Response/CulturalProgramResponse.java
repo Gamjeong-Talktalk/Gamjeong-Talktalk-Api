@@ -1,13 +1,10 @@
 package com.addi.culturalProgram.dto.Response;
 
 import com.addi.culturalProgram.domain.CulturalProgram;
-import com.google.type.DateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,8 +16,6 @@ public class CulturalProgramResponse {
     private String address;
     private String phoneNumber;
     private String programName;
-    private LocalDate startDate;
-    private LocalDate endDate;
 
     public static CulturalProgramResponse toResponse (CulturalProgram culturalProgram){
         return CulturalProgramResponse.builder()
@@ -29,8 +24,6 @@ public class CulturalProgramResponse {
                 .address(culturalProgram.getAddress())
                 .phoneNumber(culturalProgram.getPhoneNumber())
                 .programName(culturalProgram.getProgramName())
-                .startDate(culturalProgram.getStartDate())
-                .endDate(culturalProgram.getEndDate())
                 .build();
     }
 }
