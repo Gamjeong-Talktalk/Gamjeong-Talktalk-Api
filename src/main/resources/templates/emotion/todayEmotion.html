@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Today's Emotion</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* 추가된 CSS 스타일 */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2 th:text="${emotionDate} + '일의 감정'"></h2>
+  <div style="width:75%;">
+    <canvas id="emotionChart"></canvas>
+  </div>
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var ctx = document.getElementById('emotionChart').getContext('2d');
+    var emotionData = {
+        labels: ['분노', '슬픔', '실망', '행복', '중립'],
+        datasets: [{
+            label: 'Emotion Level',
+            data: [
+                [[${emotionResponse.anger}]],
+                [[${emotionResponse.sad}]],
+                [[${emotionResponse.anxious}]],
+                [[${emotionResponse.happy}]],
+                [[${emotionResponse.neutral}]]
+            ],
+            backgroundColor: [
+                'rgba(255, 0, 0, 0.5)',    // 분노 - 진한 빨강
+                'rgba(0, 0, 139, 0.5)',    // 슬픔 - 진한 파랑
+                'rgba(148, 0, 211, 0.5)',  // 실망 - 보라색
+                'rgba(255, 255, 0, 0.5)',  // 행복 - 노란색
+                'rgba(128, 128, 128, 0.5)' // 중립 - 회색
+            ],
+            borderColor: [
+                'rgba(255, 0, 0, 1)',      // 분노 - 진한 빨강
+                'rgba(0, 0, 139, 1)',      // 슬픔 - 진한 파랑
+                'rgba(148, 0, 211, 1)',    // 실망 - 보라색
+                'rgba(255, 255, 0, 1)',    // 행복 - 노란색
+                'rgba(128, 128, 128, 1)'   // 중립 - 회색
+            ],
+            borderWidth: 1
+        }]
+    };
+    var emotionChart = new Chart(ctx, {
+        type: 'doughnut', // 원형 도넛 그래프로 변경
+        data: emotionData,
+        options: {
+            cutoutPercentage: 60, // 중앙에 빈 공간을 만듭니다.
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                position: 'right',
+            }
+        }
+    });
+    /*]]>*/
+</script>
+</body>
+</html>
