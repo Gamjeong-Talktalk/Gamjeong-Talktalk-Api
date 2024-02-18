@@ -1,222 +1,251 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <title>Today's Emotion</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    /* 추가된 CSS 스타일 */
-    .container {
+    body {
+      background-color: #e0f0e0; /* 연두색 배경 */
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
+      height: 100vh;
+      margin: 0;
     }
-  </style>
-  <style>
-  #emotionChart, #emotionChart2, #emotionChart3 {
-    height: 300px; /* 높이 조정 */
-    margin-bottom: 60px; /* 아래쪽 여백 추가 */
-  }
-}
+
+    .container {
+      background-color: #ffffff; /* 하얀색 배경 */
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+      max-width: 100%; /* 변경 */
+      width: 600px; /* 추가 */
+      text-align: center; /* 가운데 정렬 */
+    }
+
+    .chart-container {
+      display: inline-block;
+      width: 80%; /* 그래프의 너비 조정 */
+      margin-right: 5%; /* 오른쪽 여백 설정 */
+    }
+
+    .chart-container:not(:last-child) {
+      border-bottom: 1px solid #ccc; /* 마지막 chart-container를 제외한 모든 요소에 구분선 추가 */
+      padding-bottom: 10px; /* 구분선 아래 여백 추가 */
+    }
+
+    #emotionChart, #emotionChart2, #emotionChart3 {
+      width: 100%; /* 너비 100%로 조정 */
+      height: 230px; /* 높이 조정 */
+      margin-bottom: 60px; /* 아래쪽 여백 추가 */
+    }
+
+    canvas {
+      display: block;
+    }
   </style>
 </head>
 <body>
+
 <div class="container">
-  <div style="width:40%;">
+  <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+  <div class="chart-container">
     <canvas id="emotionChart"></canvas>
   </div>
 
-  <div style="width:40%;">
+  <div class="chart-container">
     <canvas id="emotionChart2"></canvas>
   </div>
 
-  <div style="width:75%;">
+  <div class="chart-container">
     <canvas id="emotionChart3"></canvas>
   </div>
+  <div th:replace="fragments/footer :: footer"/>
 </div>
 
 <!-- Include Chart.js library -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   /*<![CDATA[*/
-    var ctx = document.getElementById('emotionChart').getContext('2d');
-    var emotionData = {
-        labels: ['분노', '슬픔', '실망', '행복', '중립'],
-        datasets: [{
-            label: '감정값 (%)',
-            data: [
-                [[${emotionResponse.max.anger}]],
-                [[${emotionResponse.max.sad}]],
-                [[${emotionResponse.max.anxious}]],
-                [[${emotionResponse.max.happy}]],
-                [[${emotionResponse.max.neutral}]]
-            ],
-            backgroundColor: [
-                'rgba(255, 0, 0, 0.5)',    // 분노 - 진한 빨강
-                'rgba(0, 0, 139, 0.5)',    // 슬픔 - 진한 파랑
-                'rgba(148, 0, 211, 0.5)',  // 실망 - 보라색
-                'rgba(255, 255, 0, 0.5)',  // 행복 - 노란색
-                'rgba(128, 128, 128, 0.5)' // 중립 - 회색
-            ],
-            borderColor: [
-                'rgba(255, 0, 0, 1)',      // 분노 - 진한 빨강
-                'rgba(0, 0, 139, 1)',      // 슬픔 - 진한 파랑
-                'rgba(148, 0, 211, 1)',    // 실망 - 보라색
-                'rgba(255, 255, 0, 1)',    // 행복 - 노란색
-                'rgba(128, 128, 128, 1)'   // 중립 - 회색
-            ],
-            borderWidth: 0.5
-        }]
-    };
-    var emotionChart = new Chart(ctx, {
-    type: 'line', // 막대 그래프로 변경
-    data: emotionData,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-            position: 'right',
-        },
-        scales: {
-            y: {
-                min: 0, // y 축의 최소값
-                max: 100, // y 축의 최대값
-            }
-        },
-        layout: {
-                padding: {
-                    top: 10 // 제목과 차트 간의 간격 조정
-                }
-            },
-            plugins: {
-                title: { // 타이틀 플러그인 사용
-                    display: true, // 제목 표시 여부
-                    text: '최근 일주일 감정 최댓값', // 제목 내용
-                    font: {
-                        size: 30 // 제목 폰트 크기 설정
-                    }
-                }
-            }
-    }
-});
+  var ctx = document.getElementById('emotionChart').getContext('2d');
+  var emotionData = {
+      labels: ['분노', '슬픔', '실망', '행복', '중립'],
+      datasets: [{
+          label: '감정값 (%)',
+          data: [
+              [[${emotionResponse.max.anger}]],
+              [[${emotionResponse.max.sad}]],
+              [[${emotionResponse.max.anxious}]],
+              [[${emotionResponse.max.happy}]],
+              [[${emotionResponse.max.neutral}]]
+          ],
+          backgroundColor: [
+              'rgba(255, 0, 0, 0.5)',    // 분노 - 진한 빨강
+              'rgba(0, 0, 139, 0.5)',    // 슬픔 - 진한 파랑
+              'rgba(148, 0, 211, 0.5)',  // 실망 - 보라색
+              'rgba(255, 255, 0, 0.5)',  // 행복 - 노란색
+              'rgba(128, 128, 128, 0.5)' // 중립 - 회색
+          ],
+          borderColor: [
+              'rgba(255, 0, 0, 1)',      // 분노 - 진한 빨강
+              'rgba(0, 0, 139, 1)',      // 슬픔 - 진한 파랑
+              'rgba(148, 0, 211, 1)',    // 실망 - 보라색
+              'rgba(255, 255, 0, 1)',    // 행복 - 노란색
+              'rgba(128, 128, 128, 1)'   // 중립 - 회색
+          ],
+          borderWidth: 0.5
+      }]
+  };
+  var emotionChart = new Chart(ctx, {
+      type: 'line', // 막대 그래프로 변경
+      data: emotionData,
+      options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          legend: {
+              position: 'right',
+          },
+          scales: {
+              y: {
+                  min: 0, // y 축의 최소값
+                  max: 100, // y 축의 최대값
+              }
+          },
+          layout: {
+              padding: {
+                  top: 10 // 제목과 차트 간의 간격 조정
+              }
+          },
+          plugins: {
+              title: { // 타이틀 플러그인 사용
+                  display: true, // 제목 표시 여부
+                  text: '최근 일주일 감정 최댓값', // 제목 내용
+                  font: {
+                      size: 30 // 제목 폰트 크기 설정
+                  }
+              }
+          }
+      }
+  });
 
+  var ctx2 = document.getElementById('emotionChart2').getContext('2d');
+  var emotionData2 = {
+      labels: ['분노', '슬픔', '실망', '행복', '중립'],
+      datasets: [{
+          label: '감정값 (%)',
+          data: [
+              [[${emotionResponse.min.anger}]],
+              [[${emotionResponse.min.sad}]],
+              [[${emotionResponse.min.anxious}]],
+              [[${emotionResponse.min.happy}]],
+              [[${emotionResponse.min.neutral}]]
+          ],
+          backgroundColor: [
+              'rgba(204, 0, 0, 0.5)',    // 분노 - 진한 빨강
+              'rgba(0, 0, 102, 0.5)',    // 슬픔 - 진한 파랑
+              'rgba(117, 0, 161, 0.5)',  // 실망 - 진한 보라색
+              'rgba(204, 204, 0, 0.5)',  // 행복 - 진한 노란색
+              'rgba(77, 77, 77, 0.5)'    // 중립 - 진한 회색
+          ],
+          borderColor: [
+              'rgba(255, 0, 0, 1)',      // 분노 - 진한 빨강
+              'rgba(0, 0, 139, 1)',      // 슬픔 - 진한 파랑
+              'rgba(148, 0, 211, 1)',    // 실망 - 보라색
+              'rgba(255, 255, 0, 1)',    // 행복 - 노란색
+              'rgba(128, 128, 128, 1)'   // 중립 - 회색
+          ],
+          borderWidth: 1
+      }]
+  };
+  var emotionChart2 = new Chart(ctx2, {
+      type: 'line', // 막대 그래프로 변경
+      data: emotionData2,
+      options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          legend: {
+              position: 'right',
+          },
+          scales: {
+              y: {
+                  min: 0, // y 축의 최소값
+                  max: 100, // y 축의 최대값
+              }
+          },
+          layout: {
+              padding: {
+                  top: 10 // 제목과 차트 간의 간격 조정
+              }
+          },
+          plugins: {
+              title: { // 타이틀 플러그인 사용
+                  display: true, // 제목 표시 여부
+                  text: '최근 일주일 감정 최솟값', // 제목 내용
+                  font: {
+                      size: 30 // 제목 폰트 크기 설정
+                  }
+              }
+          }
+      }
+  });
 
-    var ctx2 = document.getElementById('emotionChart2').getContext('2d');
-    var emotionData2 = {
-        labels: ['분노', '슬픔', '실망', '행복', '중립'],
-        datasets: [{
-            label: '감정값 (%)',
-            data: [
-                [[${emotionResponse.min.anger}]],
-                [[${emotionResponse.min.sad}]],
-                [[${emotionResponse.min.anxious}]],
-                [[${emotionResponse.min.happy}]],
-                [[${emotionResponse.min.neutral}]]
-            ],
-            backgroundColor: [
-                'rgba(204, 0, 0, 0.5)',    // 분노 - 진한 빨강
-                'rgba(0, 0, 102, 0.5)',    // 슬픔 - 진한 파랑
-                'rgba(117, 0, 161, 0.5)',  // 실망 - 진한 보라색
-                'rgba(204, 204, 0, 0.5)',  // 행복 - 진한 노란색
-                'rgba(77, 77, 77, 0.5)'    // 중립 - 진한 회색
-            ],
-            borderColor: [
-                'rgba(255, 0, 0, 1)',      // 분노 - 진한 빨강
-                'rgba(0, 0, 139, 1)',      // 슬픔 - 진한 파랑
-                'rgba(148, 0, 211, 1)',    // 실망 - 보라색
-                'rgba(255, 255, 0, 1)',    // 행복 - 노란색
-                'rgba(128, 128, 128, 1)'   // 중립 - 회색
-            ],
-            borderWidth: 1
-        }]
-    };
-    var emotionChart2 = new Chart(ctx2, {
-        type: 'line', // 막대 그래프로 변경
-        data: emotionData2,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                position: 'right',
-            },
-            scales: {
-                y: {
-                    min: 0, // y 축의 최소값
-                    max: 100, // y 축의 최대값
-                }
-            },
-            layout: {
-                padding: {
-                    top: 10 // 제목과 차트 간의 간격 조정
-                }
-            },
-            plugins: {
-                title: { // 타이틀 플러그인 사용
-                    display: true, // 제목 표시 여부
-                    text: '최근 일주일 감정 최솟값', // 제목 내용
-                    font: {
-                        size: 30 // 제목 폰트 크기 설정
-                    }
-                }
-            }
-        }
-    });
+  var ctx3 = document.getElementById('emotionChart3').getContext('2d');
+  var emotionData3 = {
+      labels: ['분노', '슬픔', '실망', '행복', '중립'],
+      datasets: [{
+          label: '감정값 (%)',
+          data: [
+              [[${emotionResponse.avg.anger}]],
+              [[${emotionResponse.avg.sad}]],
+              [[${emotionResponse.avg.anxious}]],
+              [[${emotionResponse.avg.happy}]],
+              [[${emotionResponse.avg.neutral}]]
+          ],
+          backgroundColor: [
+              'rgba(245, 0, 0, 0.5)',    // 분노 - 중간 빨강
+              'rgba(0, 0, 129, 0.5)',    // 슬픔 - 중간 파랑
+              'rgba(138, 0, 191, 0.5)',  // 실망 - 중간 보라색
+              'rgba(245, 245, 0, 0.5)',  // 행복 - 중간 노란색
+              'rgba(148, 148, 148, 0.5)' // 중립 - 중간 회색
+          ],
+          borderColor: [
+              'rgba(255, 0, 0, 1)',      // 분노 - 진한 빨강
+              'rgba(0, 0, 139, 1)',      // 슬픔 - 진한 파랑
+              'rgba(148, 0, 211, 1)',    // 실망 - 보라색
+              'rgba(255, 255, 0, 1)',    // 행복 - 노란색
+              'rgba(128, 128, 128, 1)'   // 중립 - 회색
+          ],
 
-    var ctx3 = document.getElementById('emotionChart3').getContext('2d');
-    var emotionData3 = {
-        labels: ['분노', '슬픔', '실망', '행복', '중립'],
-        datasets: [{
-            label: '감정값 (%)',
-            data: [
-                [[${emotionResponse.avg.anger}]],
-                [[${emotionResponse.avg.sad}]],
-                [[${emotionResponse.avg.anxious}]],
-                [[${emotionResponse.avg.happy}]],
-                [[${emotionResponse.avg.neutral}]]
-            ],
-            backgroundColor: [
-                'rgba(245, 0, 0, 0.5)',    // 분노 - 중간 빨강
-                'rgba(0, 0, 129, 0.5)',    // 슬픔 - 중간 파랑
-                'rgba(138, 0, 191, 0.5)',  // 실망 - 중간 보라색
-                'rgba(245, 245, 0, 0.5)',  // 행복 - 중간 노란색
-                'rgba(148, 148, 148, 0.5)' // 중립 - 중간 회색
-            ],
-            borderColor: [
-                'rgba(255, 0, 0, 1)',      // 분노 - 진한 빨강
-                'rgba(0, 0, 139, 1)',      // 슬픔 - 진한 파랑
-                'rgba(148, 0, 211, 1)',    // 실망 - 보라색
-                'rgba(255, 255, 0, 1)',    // 행복 - 노란색
-                'rgba(128, 128, 128, 1)'   // 중립 - 회색
-            ],
-
-            borderWidth: 1
-        }]
-    };
-    var emotionChart3 = new Chart(ctx3, {
-        type: 'pie', // 여전히 원형 도넛 그래프
-        data: emotionData3,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                position: 'right',
-            },
-            layout: {
-                padding: {
-                    top: 10 // 제목과 차트 간의 간격 조정
-                }
-            },
-            plugins: {
-                title: { // 타이틀 플러그인 사용
-                    display: true, // 제목 표시 여부
-                    text: '최근 일주일 감정 평균값', // 제목 내용
-                    font: {
-                        size: 30 // 제목 폰트 크기 설정
-                    }
-                }
-            }
-        }
-    });
-
+          borderWidth: 1
+      }]
+  };
+  var emotionChart3 = new Chart(ctx3, {
+      type: 'pie', // 여전히 원형 도넛 그래프
+      data: emotionData3,
+      options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          legend: {
+              position: 'right',
+          },
+          layout: {
+              padding: {
+                  top: 10 // 제목과 차트 간의 간격 조정
+              }
+          },
+          plugins: {
+              title: { // 타이틀 플러그인 사용
+                  display: true, // 제목 표시 여부
+                  text: '최근 일주일 감정 평균값', // 제목 내용
+                  font: {
+                      size: 30 // 제목 폰트 크기 설정
+                  }
+              }
+          }
+      }
+  });
   /*]]>*/
 </script>
 
