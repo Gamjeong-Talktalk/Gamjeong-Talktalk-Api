@@ -1,9 +1,7 @@
 package com.addi.member.presentation;
 
 import com.addi.member.application.MemberService;
-import com.addi.member.dto.request.SignUpToUserRequest;
 import com.addi.member.dto.response.LoginToUserResponse;
-import com.addi.member.dto.response.SignUpToUserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;

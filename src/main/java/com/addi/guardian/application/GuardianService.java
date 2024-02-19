@@ -8,7 +8,6 @@ import com.addi.guardian.dto.response.LoginToGuardianResponse;
 import com.addi.member.domain.Member;
 import com.addi.guardian.dto.response.GetMembersResponse;
 import com.addi.guardian.exception.GuardianError;
-import com.addi.member.exception.MemberError;
 import com.addi.guardian.infra.persistence.GuardianRepository;
 import com.addi.member.infra.persistence.MemberRepository;
 import lombok.RequiredArgsConstructor;

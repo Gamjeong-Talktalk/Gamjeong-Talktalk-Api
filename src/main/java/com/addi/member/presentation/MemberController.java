@@ -1,9 +1,6 @@
 package com.addi.member.presentation;
 
-import com.addi.guardian.dto.request.LoginToGuardianRequest;
-import com.addi.guardian.dto.request.SignUpToGuardianRequest;
 import com.addi.member.dto.request.SignUpToUserRequest;
-import com.addi.guardian.dto.response.LoginToGuardianResponse;
 import com.addi.member.dto.response.LoginToUserResponse;
 import com.addi.member.dto.response.SignUpToUserResponse;
 import jakarta.validation.Valid;

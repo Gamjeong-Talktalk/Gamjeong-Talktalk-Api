@@ -5,11 +5,9 @@ import java.util.List;
 import com.addi.conversation.domain.Conversation;
 import com.addi.conversation.dto.ConversationRequest;
 import com.addi.emotion.application.EmotionService;
-import com.addi.member.domain.Member;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.addi.conversation.appication.ConversationService;
 

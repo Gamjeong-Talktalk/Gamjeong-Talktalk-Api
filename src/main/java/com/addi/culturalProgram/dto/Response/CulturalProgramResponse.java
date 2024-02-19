@@ -2,7 +2,6 @@ package com.addi.culturalProgram.dto.Response;
 
 
 import com.addi.culturalProgram.domain.CulturalProgram;
-import com.google.type.DateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,13 +1,9 @@
 package com.addi.member.application;
 
 import com.addi.member.domain.Member;
-import com.addi.guardian.dto.request.LoginToGuardianRequest;
-import com.addi.guardian.dto.request.SignUpToGuardianRequest;
 import com.addi.member.dto.request.SignUpToUserRequest;
-import com.addi.guardian.dto.response.LoginToGuardianResponse;
 import com.addi.member.dto.response.LoginToUserResponse;
 import com.addi.member.dto.response.SignUpToUserResponse;
-import com.addi.guardian.exception.GuardianError;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +14,6 @@ import com.addi.guardian.infra.persistence.GuardianRepository;
 import com.addi.member.infra.persistence.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

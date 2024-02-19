@@ -5,7 +5,6 @@ import com.addi.conversation.infra.persistence.ConversationRepository;
 import com.addi.emotion.dto.OneWeekEmotionResponse;
 import com.addi.emotion.dto.TodayEmotionResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
