@@ -31,7 +31,7 @@ jobs:
       - name: Build and push Docker image
         run: ./gradlew clean bootBuildImage -PDOCKERHUB_ID=${{ secrets.DOCKERHUB_ID }} -PDOCKERHUB_TOKEN=${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: SSH into EC2 instance
+      - name: SSH into NCP instance
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.NCP_HOST }}
@@ -39,7 +39,7 @@ jobs:
           password: ${{ secrets.NCP_PASSWORD }}
           port: ${{ secrets.NCP_SSH_PORT }}
           script: |
-            docker pull ${{ secrets.DOCKER_HUB_URL }}
+            docker pull ${{ secrets.DOCKERHUB_URL }}
             docker ps -f name=be-server -q | xargs --no-run-if-empty docker container stop
             docker ps -a -f name=be-server -q | xargs --no-run-if-empty docker container rm
-            docker run -d --name be-server -p 80:8080 ${{ secrets.DOCKER_HUB_URL }}
+            docker run -d --name be-server -p 80:8080 ${{ secrets.DOCKERHUB_URL }}
