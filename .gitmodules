@@ -1,3 +1,3 @@
-[submodule "ADDI-config"]
-	path = ADDI-config
-	url = git@github.com:GDSC-Team-J/ADDI-config.git
+[submodule "CONFIG"]
+	path = CONFIG
+	url = git@github.com:Gamjeong-Talktalk/Gamjeong-Config.git
