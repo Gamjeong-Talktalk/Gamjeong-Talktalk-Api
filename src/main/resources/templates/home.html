@@ -5,9 +5,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+
+    @font-face {
+            font-family: 'NotoSansKRBlack';
+            src: url('/font/notosanskr_medium.otf') format('opentype');
+        }
+
         body {
+            font-family: 'NotoSansKRBlack', sans-serif;
             background-color: #c0e0c0; /* 연한 연두색 */
         }
+
         .custom-container {
             background-color: #f8f8ff; /* 연한 연두색 */
             padding: 20px;
@@ -42,17 +50,17 @@
     <div class="custom-container">
         <div class="jumbotron">
             <h1 class="text-center">감정톡톡</h1>
-            <p class="text-right"><b>부산시 사하구</b><br>담당자 변해빈님</p>
+            <p class="text-right"><b>부산시 사상구</b><br>담당자 변해빈님</p>
             <div class="text-center">
                 <div class="lead"><b>회원 관리 기능</b></div>
                 <div>
                     <a class="btn btn-lg btn-success" href="/members/new">회원 가입</a>
                     <a class="btn btn-lg btn-success" href="/members">회원 현황</a>
                 </div>
-                <div class="lead"><b>문화 생활 기능</b></div>
+                <div class="lead"><b>문화 활동 기능</b></div>
                 <div>
-                    <a class="btn btn-lg btn-success" href="/cultures/new">문화생활 등록</a>
-                    <a class="btn btn-lg btn-success" href="/cultures">문화생활 목록</a>
+                    <a class="btn btn-lg btn-success" href="/cultures/new">문화활동 등록</a>
+                    <a class="btn btn-lg btn-success" href="/cultures">문화활동 목록</a>
                 </div>
                 <div style="margin-top: 40px;">
                     <div th:replace="fragments/footer :: footer"></div>
