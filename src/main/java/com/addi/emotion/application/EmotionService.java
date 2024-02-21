@@ -168,7 +168,7 @@ public class EmotionService {
         String url = "https://api-inference.huggingface.co/models/bhadresh-savani/bert-base-go-emotion";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + token);
+        //headers.set("Authorization", "Bearer " + token);
 
         for (Conversation conversation : conversations) {
             String inputJson = String.format("{\"inputs\": \"%s\"}", conversation.getResponse());
